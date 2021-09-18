@@ -1,0 +1,21 @@
+import 'package:app_filmes/modules/movies/Movies_controller.dart';
+import 'package:app_filmes/repositories/genres/genres_repository.dart';
+import 'package:app_filmes/repositories/genres/genres_repository_impl.dart';
+import 'package:app_filmes/services/genres/genres_service.dart';
+import 'package:app_filmes/services/genres/genres_service_impl.dart';
+import 'package:get/get.dart';
+
+class MoviresBindings implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<GenresRepository>(
+      () => GenresRepositoryImpl(restClient: Get.find()),
+    );
+
+    Get.lazyPut<GenresService>(
+      () => GenresServiceImpl(geresRepository: Get.find()),
+    );
+
+    Get.lazyPut(() => MoviesController(genresService: Get.find()));
+  }
+}
