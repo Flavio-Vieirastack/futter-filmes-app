@@ -18,6 +18,10 @@ class MoviesPage extends StatelessWidget {
           MoviesGroup(
             title: "Mais populares",
           ),
+    Container(height: 4, color: Colors.grey[100],),
+          MoviesGroup(
+            title: "Top filmes",
+          ),
         ],
       ),
     );
