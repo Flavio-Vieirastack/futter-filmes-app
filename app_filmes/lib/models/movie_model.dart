@@ -29,10 +29,10 @@ class MovieModel {
 
   factory MovieModel.fromMap(Map<String, dynamic> map) {
     return MovieModel(
-      id: map['id'],
-      title: map['title'],
-      releaseDate: map['release_date'],
-      posterPath: map['poster_path'],
+      id: map['id'] ?? 0,
+      title: map['title'] ?? "",
+      releaseDate: map['release_date'] ?? "",
+      posterPath: "https://image.tmdb.org/t/p/w500/${map['poster_path']}",
       genres: List<int>.from(map['genre_ids']),
       favorite: map['favorite'] ?? false,
     );
@@ -40,5 +40,6 @@ class MovieModel {
 
   String toJson() => json.encode(toMap());
 
-  factory MovieModel.fromJson(String source) => MovieModel.fromMap(json.decode(source));
+  factory MovieModel.fromJson(String source) =>
+      MovieModel.fromMap(json.decode(source));
 }

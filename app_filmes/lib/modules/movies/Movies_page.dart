@@ -16,6 +16,7 @@ class MoviesPage extends GetView<MoviesController> {
         children: [
           MoviesHeader(),
           MoviesFilters(),
+          Container(height: 4, color: Colors.grey[100],),
           MoviesGroup(
             title: "Mais populares",
             movies: controller.popularMovies,

@@ -1,8 +1,12 @@
 import 'package:app_filmes/application/ui/filmes_app_icons_icons.dart';
+import 'package:app_filmes/models/movie_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MoviesCard extends StatelessWidget {
-  const MoviesCard({Key? key}) : super(key: key);
+  final MovieModel movie;
+  final dateFomart = DateFormat("y");
+  MoviesCard({Key? key, required this.movie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +29,18 @@ class MoviesCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   clipBehavior: Clip.antiAlias,
                   child: Image.network(
-                      "https://br.web.img3.acsta.net/pictures/19/04/03/18/23/2539612.jpg",
-                      width: 148,
-                      height: 184,
-                      fit: BoxFit.cover,
-                      ),
+                    movie.posterPath,
+                    width: 148,
+                    height: 184,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               SizedBox(
                 height: 15,
               ),
               Text(
-                "Coringa",
+                movie.title,
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
@@ -45,7 +49,7 @@ class MoviesCard extends StatelessWidget {
                 maxLines: 2,
               ),
               Text(
-                "2019",
+                dateFomart.format(DateTime.parse(movie.releaseDate)),
                 style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w300,
@@ -66,7 +70,8 @@ class MoviesCard extends StatelessWidget {
                   iconSize: 14,
                   onPressed: () {},
                   icon: Icon(
-                    FilmesAppIcons.heart, color: Colors.grey,
+                    FilmesAppIcons.heart,
+                    color: Colors.grey,
                   ),
                 ),
               ),

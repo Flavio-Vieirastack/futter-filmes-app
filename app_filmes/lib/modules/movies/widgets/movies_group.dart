@@ -33,10 +33,12 @@ class MoviesGroup extends StatelessWidget {
                 return ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return MoviesCard();
-                  },
                   itemCount: movies.length,
+                  
+                  itemBuilder: (context, index) {
+                    return MoviesCard(movie: movies[index],);
+                  },
+                  
                 );
               })),
         ],
