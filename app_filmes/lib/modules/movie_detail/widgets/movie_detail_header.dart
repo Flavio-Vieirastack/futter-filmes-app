@@ -2,6 +2,7 @@ import 'package:app_filmes/models/movie_detail_model.dart';
 import 'package:app_filmes/modules/movie_detail/movie_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class MovieDetailHeader extends GetView<MovieDetailController> {
   final MovieDetailModel? movie;
@@ -20,7 +21,9 @@ class MovieDetailHeader extends GetView<MovieDetailController> {
             final image = movieData.urlImages[index];
             return Padding(
               padding: EdgeInsets.all(5),
-              child: Image.network(image),
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: image,),
             );
           },
         ),

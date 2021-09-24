@@ -4,6 +4,7 @@ import 'package:app_filmes/models/movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:intl/intl.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class MoviesCard extends StatelessWidget {
   final MovieModel movie;
@@ -36,8 +37,9 @@ class MoviesCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     clipBehavior: Clip.antiAlias,
-                    child: Image.network(
-                      "https://image.tmdb.org/t/p/w200${movie.posterPath}",
+                    child: FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage,
+                      image: "https://image.tmdb.org/t/p/w200${movie.posterPath}",
                       width: 148,
                       height: 184,
                       fit: BoxFit.cover,
