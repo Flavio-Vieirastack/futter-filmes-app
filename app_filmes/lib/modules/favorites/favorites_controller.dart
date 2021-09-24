@@ -1,0 +1,43 @@
+import 'package:app_filmes/application/auth/auth_services.dart';
+import 'package:app_filmes/models/movie_model.dart';
+import 'package:app_filmes/services/movies/movies_service.dart';
+import 'package:get/get.dart';
+
+class FavoritesController extends GetxController {
+  final MoviesService _moviesService;
+  final AuthServices _authServices;
+
+  var movies = <MovieModel>[].obs;
+
+  FavoritesController(
+      {required MoviesService moviesService,
+      required AuthServices authServices})
+      : _moviesService = moviesService,
+        _authServices = authServices;
+
+  @override
+  void onReady() {
+    super.onReady();
+    _getFavorites();
+  }
+
+  Future<void> _getFavorites() async {
+    var user = _authServices.user;
+
+    if (user != null) {
+      var favorites = await _moviesService.getFavoritesMovies(user.uid);
+      movies.assignAll(favorites);
+    }
+  }
+
+  Future<void> removeFavorites(MovieModel movie) async {
+    var user = _authServices.user;
+
+    if (user != null) {
+      await _moviesService.addOrRemoveFavorites(
+          user.uid, movie.copyWith(favorite: false));
+
+      movies.remove(movie);
+    }
+  }
+}

@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   HomeController({required LoginServices loginServices})
       : _loginServices = loginServices;
 
-  final _pages = ["/favorites", "/movies"];
+  final _pages = ["/movies", "/favorites"];
 
   final _pageIndex = 0.obs;
 
@@ -20,7 +20,7 @@ class HomeController extends GetxController {
 
     if (page == INDEX_PAGE_EXIT) {
       _loginServices.logout();
-    } else if (page == 0) {
+    } else {
       Get.offNamed(_pages[page], id: NAVIGATOR_KEY);
     }
   }

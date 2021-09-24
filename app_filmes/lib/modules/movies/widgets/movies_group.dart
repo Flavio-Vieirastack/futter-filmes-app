@@ -1,10 +1,12 @@
 import 'package:app_filmes/application/ui/widgets/movies_card.dart';
 import 'package:app_filmes/models/movie_model.dart';
+import 'package:app_filmes/modules/movies/Movies_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
-class MoviesGroup extends StatelessWidget {
+class MoviesGroup extends GetView<MoviesController> {
   final String title;
   final List<MovieModel> movies;
   const MoviesGroup({Key? key, required this.title, required this.movies})
@@ -36,7 +38,12 @@ class MoviesGroup extends StatelessWidget {
                   itemCount: movies.length,
                   
                   itemBuilder: (context, index) {
-                    return MoviesCard(movie: movies[index],);
+                    var movie = movies[index];
+                    return MoviesCard(
+                      
+                      movie: movie,
+                      favoritesCallback: () => controller.favoritesMovie(movie),
+                      );
                   },
                   
                 );

@@ -20,6 +20,7 @@ class MoviresBindings implements Bindings {
       () => MoviesController(
         genresService: Get.find(),
         moviesService: Get.find(),
+        authServices: Get.find(),
       ),
     );
   }

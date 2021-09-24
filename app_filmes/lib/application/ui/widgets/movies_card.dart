@@ -1,4 +1,5 @@
 import 'package:app_filmes/application/ui/filmes_app_icons_icons.dart';
+import 'package:app_filmes/application/ui/theme_extension.dart';
 import 'package:app_filmes/models/movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -7,16 +8,15 @@ import 'package:intl/intl.dart';
 class MoviesCard extends StatelessWidget {
   final MovieModel movie;
   final dateFomart = DateFormat("y");
-  MoviesCard({Key? key, required this.movie}) : super(key: key);
+  final VoidCallback favoritesCallback;
+  MoviesCard({Key? key, required this.movie, required this.favoritesCallback})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(
-          "/movie/detail",
-          arguments: movie.id
-          );
+        Get.toNamed("/movie/detail", arguments: movie.id);
       },
       child: Container(
         padding: EdgeInsets.all(6),
@@ -37,7 +37,7 @@ class MoviesCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     clipBehavior: Clip.antiAlias,
                     child: Image.network(
-                      movie.posterPath,
+                      "https://image.tmdb.org/t/p/w200${movie.posterPath}",
                       width: 148,
                       height: 184,
                       fit: BoxFit.cover,
@@ -76,11 +76,15 @@ class MoviesCard extends StatelessWidget {
                   height: 30,
                   child: IconButton(
                     iconSize: 14,
-                    onPressed: () {},
+                    onPressed: this.favoritesCallback,
                     icon: Icon(
-                      FilmesAppIcons.heart,
-                      color: Colors.grey,
-                    ),
+                        movie.favorite
+                            ? FilmesAppIcons.heart
+                            : FilmesAppIcons.heart_empty,
+                        color: movie.favorite
+                            ? context.iconClicledColor 
+                            : Colors.grey
+                            ),
                   ),
                 ),
               ),
